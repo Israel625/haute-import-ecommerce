@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -11,7 +11,7 @@ import Image from "next/image"
 
 const categorias = ["Todos", "Tênis", "Bolsas", "Acessórios"]
 
-export default function CatalogoPage() {
+function CatalogoContent() {
   const [produtos, setProdutos] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [categoriaAtiva, setCategoriaAtiva] = useState("Todos")
@@ -882,5 +882,13 @@ export default function CatalogoPage() {
         </div>
       )}
     </div>
+  )
+}
+
+export default function CatalogoPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center"><p>Carregando...</p></div>}>
+      <CatalogoContent />
+    </Suspense>
   )
 }
