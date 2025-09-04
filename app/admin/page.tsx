@@ -68,9 +68,9 @@ export default function AdminPage() {
           body: JSON.stringify({
             ...novoProduto,
             imagens: novoProduto.imagens || [],
-            tamanhos: typeof novoProduto.tamanhos === 'string' 
-              ? novoProduto.tamanhos.split(',').map(t => t.trim()).filter(t => t)
-              : novoProduto.tamanhos || []
+            tamanhos: Array.isArray(novoProduto.tamanhos) 
+              ? novoProduto.tamanhos 
+              : (novoProduto.tamanhos || '').toString().split(',').map(t => t.trim()).filter(t => t)
           })
         })
         
@@ -116,9 +116,9 @@ export default function AdminPage() {
           body: JSON.stringify({
             ...novoProduto,
             imagens: novoProduto.imagens || [],
-            tamanhos: typeof novoProduto.tamanhos === 'string' 
-              ? novoProduto.tamanhos.split(',').map(t => t.trim()).filter(t => t)
-              : novoProduto.tamanhos || []
+            tamanhos: Array.isArray(novoProduto.tamanhos) 
+              ? novoProduto.tamanhos 
+              : (novoProduto.tamanhos || '').toString().split(',').map(t => t.trim()).filter(t => t)
           })
         })
         
