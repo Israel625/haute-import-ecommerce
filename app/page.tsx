@@ -32,7 +32,14 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/20" />
         <div className="relative z-10 max-w-4xl mx-auto space-y-8">
           <div className="flex justify-center mb-1">
-            <Image src="/logohaute.png" alt="Haute Import" width={1200} height={480} className="h-80 md:h-96 w-auto" />
+            <Image 
+              src="/logohaute.png" 
+              alt="Haute Import" 
+              width={600} 
+              height={240} 
+              className="h-32 md:h-40 w-auto object-contain" 
+              priority
+            />
           </div>
 
           <div className="space-y-2">

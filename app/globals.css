@@ -143,4 +143,21 @@
     font-size: 2rem;
     pointer-events: none;
   }
+
+  /* Logo Styles */
+  .logo-responsive {
+    @apply max-w-full h-auto object-contain;
+  }
+
+  .logo-gradient {
+    background: linear-gradient(135deg, #D4AF37, #1A1A1A, #D4AF37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  @keyframes scaleX {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
 }
