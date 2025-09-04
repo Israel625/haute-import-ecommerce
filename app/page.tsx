@@ -32,13 +32,15 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-secondary/20" />
         <div className="relative z-10 max-w-4xl mx-auto space-y-8">
           <div className="flex justify-center mb-1">
+            {/* Logo corrigida - versão 2.0 */}
             <Image 
               src="/logohaute.png" 
               alt="Haute Import" 
               width={600} 
               height={240} 
-              className="h-32 md:h-40 w-auto object-contain" 
+              className="h-32 md:h-40 w-auto object-contain max-w-full" 
               priority
+              style={{ maxHeight: '10rem' }}
             />
           </div>
 
