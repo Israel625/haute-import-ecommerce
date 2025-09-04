@@ -46,10 +46,10 @@ export default function HomePage() {
 
           <div className="space-y-2">
             <h1 className="font-heading text-5xl md:text-7xl font-bold text-balance leading-tight">
-              Moda Importada Exclusiva
+              Moda importada direto da fonte.
             </h1>
             <p className="font-body text-xl md:text-2xl text-muted-foreground text-balance max-w-2xl mx-auto">
-              Tênis, Bolsas e Acessórios Premium Direto do Exterior
+              Bolsas, roupas, tênis e acessórios com curadoria exclusiva.
             </p>
           </div>
 
