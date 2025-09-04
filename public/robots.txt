@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Allow: /catalogo
+Allow: /catalogo/*
+
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /api/*
+
+Sitemap: https://hauteimport.com/sitemap.xml
