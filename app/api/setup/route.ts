@@ -12,6 +12,19 @@ export async function GET() {
 
 async function setupDatabase() {
   try {
+    console.log('🔄 Executando migrações...')
+    
+    // Executar migrações do Prisma
+    const { execSync } = require('child_process')
+    try {
+      execSync('npx prisma db push --force-reset', { stdio: 'inherit' })
+    } catch (migrationError) {
+      console.log('Tentando migração alternativa...')
+      execSync('npx prisma migrate deploy', { stdio: 'inherit' })
+    }
+    
+    console.log('✅ Migrações concluídas!')
+    
     // Criar admin padrão
     const usuario = 'haute'
     const senha = '136572Ik#'
