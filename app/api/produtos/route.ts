@@ -3,9 +3,7 @@ import { prisma } from '@/lib/prisma'
 
 export async function GET() {
   try {
-    const produtos = await prisma.produto.findMany({
-      orderBy: { createdAt: 'desc' }
-    })
+    const produtos = await prisma.$queryRaw`SELECT * FROM "produtos" ORDER BY "createdAt" DESC`
     return NextResponse.json(produtos)
   } catch (error) {
     return NextResponse.json({ error: 'Erro ao buscar produtos' }, { status: 500 })
@@ -36,18 +34,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Preço original deve ser maior ou igual ao preço' }, { status: 400 })
     }
     
-    const produto = await prisma.produto.create({
-      data: {
-        nome: data.nome.trim(),
-        categoria: data.categoria,
-        preco,
-        precoOriginal,
-        descricao: data.descricao?.trim() || '',
-        imagem: data.imagens?.[0] || data.imagem || '/placeholder.jpg',
-        imagens: data.imagens || [],
-        tamanhos: data.tamanhos || []
-      }
-    })
+    const nome = data.nome.trim()
+    const categoria = data.categoria
+    const descricao = data.descricao?.trim() || ''
+    const imagem = data.imagens?.[0] || data.imagem || '/placeholder.jpg'
+    const imagens = data.imagens || []
+    const tamanhos = data.tamanhos || []
+    
+    await prisma.$executeRaw`
+      INSERT INTO "produtos" ("nome", "categoria", "preco", "precoOriginal", "descricao", "imagem", "imagens", "tamanhos")
+      VALUES (${nome}, ${categoria}, ${preco}, ${precoOriginal}, ${descricao}, ${imagem}, ${imagens}, ${tamanhos})
+    `
+    
+    const produto = await prisma.$queryRaw`SELECT * FROM "produtos" WHERE "nome" = ${nome} ORDER BY "id" DESC LIMIT 1`
     return NextResponse.json(produto)
   } catch (error) {
     console.error('Erro ao criar produto:', error)
