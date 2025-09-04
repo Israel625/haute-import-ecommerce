@@ -67,16 +67,24 @@ function CatalogoContent() {
   const carregarProdutos = async () => {
     try {
       const response = await fetch('/api/produtos')
-      const data = await response.json()
-      setProdutos(data)
+      if (response.ok) {
+        const data = await response.json()
+        setProdutos(Array.isArray(data) ? data : [])
+      } else {
+        console.error('Erro na API:', response.status)
+        setProdutos([])
+      }
     } catch (error) {
       console.error('Erro ao carregar produtos:', error)
+      setProdutos([])
     } finally {
       setLoading(false)
     }
   }
 
   const produtosFiltrados = (() => {
+    if (!produtos || !Array.isArray(produtos)) return []
+    
     let filtered = categoriaAtiva === "Todos" 
       ? produtos 
       : produtos.filter(p => p.categoria === categoriaAtiva)
