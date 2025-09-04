@@ -3,6 +3,14 @@ import { prisma } from '@/lib/prisma'
 import bcrypt from 'bcryptjs'
 
 export async function POST() {
+  return await setupDatabase()
+}
+
+export async function GET() {
+  return await setupDatabase()
+}
+
+async function setupDatabase() {
   try {
     // Criar admin padrão
     const usuario = 'haute'
