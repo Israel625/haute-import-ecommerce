@@ -11,6 +11,19 @@ import Image from "next/image"
 
 const categorias = ["Todos", "Tênis", "Bolsas", "Acessórios"]
 
+function SearchParamsHandler({ setCategoriaAtiva }: { setCategoriaAtiva: (categoria: string) => void }) {
+  const searchParams = useSearchParams()
+  
+  useEffect(() => {
+    const categoria = searchParams.get('categoria')
+    if (categoria && categorias.includes(categoria)) {
+      setCategoriaAtiva(categoria)
+    }
+  }, [searchParams, setCategoriaAtiva])
+  
+  return null
+}
+
 function CatalogoContent() {
   const [produtos, setProdutos] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
@@ -38,15 +51,9 @@ function CatalogoContent() {
     telefone: ''
   })
   const [processandoPedido, setProcessandoPedido] = useState(false)
-
-  const searchParams = useSearchParams()
   
   useEffect(() => {
     carregarProdutos()
-    const categoria = searchParams.get('categoria')
-    if (categoria && categorias.includes(categoria)) {
-      setCategoriaAtiva(categoria)
-    }
     
     // Verificar se cliente está logado
     const clienteLogado = localStorage.getItem('cliente')
@@ -55,7 +62,7 @@ function CatalogoContent() {
       setCliente(clienteData)
       carregarPedidosCliente(clienteData.id)
     }
-  }, [searchParams])
+  }, [])
 
   const carregarProdutos = async () => {
     try {
@@ -245,6 +252,9 @@ function CatalogoContent() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Suspense fallback={null}>
+        <SearchParamsHandler setCategoriaAtiva={setCategoriaAtiva} />
+      </Suspense>
       {/* Header */}
       <header className="sticky top-0 z-40 bg-background border-b">
         {/* Frete Grátis Banner */}
