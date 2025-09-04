@@ -201,22 +201,43 @@ export default function AdminPage() {
     <div className="min-h-screen bg-background">
       {/* Header Admin */}
       <header className="border-b bg-card">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Image src="/logohaute.png" alt="Haute Import" width={200} height={80} className="h-10 md:h-12 w-auto" />
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          {/* Mobile Layout */}
+          <div className="md:hidden space-y-4">
+            <div className="flex items-center justify-between">
+              <Image src="/logohaute.png" alt="Haute Import" width={150} height={60} className="h-8 w-auto" />
+              <Button variant="outline" size="sm" onClick={logout}>
+                Sair
+              </Button>
+            </div>
             <div>
-              <h1 className="font-heading text-2xl font-bold">Painel Administrativo</h1>
+              <h1 className="font-heading text-xl font-bold">Painel Administrativo</h1>
               <p className="text-sm text-muted-foreground">Gerenciar produtos da Haute Import</p>
             </div>
-          </div>
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={() => window.open("/catalogo", "_blank")}>
+            <Button variant="outline" size="sm" onClick={() => window.open("/catalogo", "_blank")} className="w-full">
               <Eye className="w-4 h-4 mr-2" />
               Ver Catálogo
             </Button>
-            <Button variant="outline" onClick={logout}>
-              Sair
-            </Button>
+          </div>
+          
+          {/* Desktop Layout */}
+          <div className="hidden md:flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <Image src="/logohaute.png" alt="Haute Import" width={200} height={80} className="h-10 md:h-12 w-auto" />
+              <div>
+                <h1 className="font-heading text-2xl font-bold">Painel Administrativo</h1>
+                <p className="text-sm text-muted-foreground">Gerenciar produtos da Haute Import</p>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => window.open("/catalogo", "_blank")}>
+                <Eye className="w-4 h-4 mr-2" />
+                Ver Catálogo
+              </Button>
+              <Button variant="outline" onClick={logout}>
+                Sair
+              </Button>
+            </div>
           </div>
         </div>
       </header>
@@ -224,23 +245,25 @@ export default function AdminPage() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Tabs */}
         <div className="mb-8">
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
             <Button 
               variant={abaAtiva === 'produtos' ? 'default' : 'outline'}
               onClick={() => setAbaAtiva('produtos')}
+              className="w-full sm:w-auto"
             >
               Produtos ({produtos.length})
             </Button>
             <Button 
               variant={abaAtiva === 'pedidos' ? 'default' : 'outline'}
               onClick={() => setAbaAtiva('pedidos')}
+              className="w-full sm:w-auto"
             >
               Pedidos ({pedidos.length})
             </Button>
           </div>
         </div>
         {abaAtiva === 'produtos' ? (
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Formulário de Cadastro */}
           <div className="lg:col-span-1">
             <Card>
